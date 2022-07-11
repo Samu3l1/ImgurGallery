@@ -16,7 +16,7 @@ const ImageCard = ({gallery, link, openImage}: { gallery: GalleryType, link: str
 
     const setSpans = () => {
         const height = imageRef.current.clientHeight;
-        const spans = Math.ceil(height / 10 + 1) + 10;
+        const spans = Math.ceil(height / 10 + 1) + 15;
 
         setSpan(spans);
     }
@@ -34,7 +34,7 @@ const ImageCard = ({gallery, link, openImage}: { gallery: GalleryType, link: str
             />
             <div style={{
                 backgroundColor: "#474a51",
-                height: "60px",
+                height: "100px",
                 width: "210px",
                 position: "relative",
                 top: "-4px",
@@ -45,6 +45,9 @@ const ImageCard = ({gallery, link, openImage}: { gallery: GalleryType, link: str
             }}>
                 <div style={{color: "white", wordBreak: "break-word", maxHeight: "37px", overflow: "hidden"}}>
                     {gallery.title}
+                </div>
+                <div style={{color:"white", overflow: "hidden"}}>
+                    {gallery.description}
                 </div>
                 <div className={style.imageDetails} style={{display: "flex"}}>
                     <div className={style.detailContainer}>

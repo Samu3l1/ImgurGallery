@@ -44,6 +44,9 @@ const VideoCard = ({link, gallery, openImage}: { link: string, gallery: GalleryT
                 <div style={{color: "white", wordBreak: "break-word", maxHeight: "37px", overflow: "hidden"}}>
                     {gallery.title}
                 </div>
+                <div style={{color:"white", overflow: "hidden"}}>
+                    {gallery.description}
+                </div>
                 <div className={style.imageDetails} style={{display: "flex"}}>
                     <div className={style.detailContainer}>
                         <FaRegArrowAltCircleUp/>
