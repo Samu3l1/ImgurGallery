@@ -4,7 +4,7 @@ import {FaRegArrowAltCircleDown, FaRegArrowAltCircleUp} from "react-icons/fa";
 import {BiCommentDetail} from "react-icons/bi";
 import {BsEye} from "react-icons/bs";
 
-const VideoCard = ({link, image}: { link: string, image: any }) => {
+const VideoCard = ({link, image, openImage}: { link: string, image: any, openImage: any }) => {
 
     const videoRef: any = React.createRef()
     const [spans, setSpan] = useState(0)
@@ -23,7 +23,7 @@ const VideoCard = ({link, image}: { link: string, image: any }) => {
 
     return (
         <div style={{gridRowEnd: `span ${spans}`}}>
-            <video ref={videoRef} width="250px" autoPlay loop>
+            <video ref={videoRef} width="250px" autoPlay loop onClick={() => openImage(image, link)}>
                 <source src={link} type="video/mp4"/>
             </video>
             <div style={{

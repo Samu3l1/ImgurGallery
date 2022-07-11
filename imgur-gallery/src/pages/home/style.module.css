@@ -18,6 +18,9 @@
     object-fit: contain;
 }
 
+.section{
+    display: flex;
+}
 
 .imageList{
     display: grid;
@@ -29,4 +32,18 @@
 .imageList img{
     width: 250px;
     grid-row-end: span 2;
+}
+
+.actions{
+    display: flex;
+    background-color: steelblue;
+    margin-bottom: 20px;
+    height: 60px;
+    color: white;
+    justify-content: space-between;
+}
+
+.sortContainer{
+    display: flex;
+    align-items: center;
 }
