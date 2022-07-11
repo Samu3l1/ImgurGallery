@@ -1,0 +1,53 @@
+.comment{
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.commentContainer{
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.loadComments:hover{
+    cursor: pointer;
+}
+
+.loadComments{
+    margin-top: 5px;
+    margin-left: 30px;
+}
+
+.subComment{
+    margin-left: 5px;
+}
+
+.author{
+    font-weight: 400;
+    font-size: 14px;
+    color: green;
+    margin-bottom: 5px;
+}
+
+.actions{
+    display: flex;
+    margin-top: 10px;
+}
+
+.upvote{
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.upvote:hover{
+    cursor: pointer;
+}
+
+.downVote:hover{
+    cursor: pointer;
+}
+
+.upvote:last-child{
+    margin-left: 5px;
+}
