@@ -1,0 +1,42 @@
+.media{
+
+}
+
+.modal{
+    width: 50vw;
+    height: 50vh;
+}
+
+.comments{
+    max-height: 440px;
+    overflow-y: scroll;
+    display: flex;
+    width: 90%;
+    justify-content: center;
+    margin-left: 20px;
+}
+
+.comments::-webkit-scrollbar {
+    display: none;
+}
+
+.next{
+    position: relative;
+    width: 0;
+    align-self: center;
+    left: -50px;
+}
+
+.next:hover{
+    cursor: pointer;
+}
+
+.previous{
+    position: relative;
+    width: 0;
+    align-self: center;
+}
+
+.previous:hover{
+    cursor: pointer;
+}

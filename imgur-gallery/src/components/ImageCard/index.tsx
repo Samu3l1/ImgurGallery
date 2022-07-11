@@ -4,7 +4,7 @@ import {BiCommentDetail} from "react-icons/bi"
 import {BsEye} from "react-icons/bs"
 import style from "./style.module.css"
 
-const ImageCard = ({image, link}: { image: any, link: string }) => {
+const ImageCard = ({image, link, openImage}: { image: any, link: string, openImage?: any }) => {
 
     const imageRef: any = React.createRef()
     const [spans, setSpan] = useState(0)
@@ -22,10 +22,11 @@ const ImageCard = ({image, link}: { image: any, link: string }) => {
 
     return (
         <div style={{gridRowEnd: `span ${spans}`}}>
-            {image.images && <div className={style.subImages}>
+            {image?.images?.length > 1 && <div className={style.subImages}>
                 {image.images.length}
             </div>}
             <img
+                onClick={() => openImage(image, link)}
                 ref={imageRef}
                 alt="err"
                 src={link}
