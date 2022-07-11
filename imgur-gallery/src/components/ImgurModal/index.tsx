@@ -18,6 +18,9 @@ interface ImgurModalInterface {
 const ImgurModal = ({ children, open, setOpen, title, description, width }: ImgurModalInterface) => {
     const handleClose = () => setOpen(false);
 
+    /**
+     * The styles of the general modal
+     */
     const style = {
         position: "absolute" as "absolute",
         top: "10%",

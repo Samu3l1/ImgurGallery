@@ -1,60 +1,79 @@
 import style from "./style.module.css"
-import {CommentType, ImageType} from "../../types";
-import {GALLERY_COMMENTS} from "../../api/responses";
+import {CommentType, GalleryType, ImageType, ShowMediaType} from "../../types";
 import Comment from "../Comment";
 import {BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill} from "react-icons/bs"
 import React, {useEffect, useState} from "react";
 // @ts-ignore
 import _ from "lodash";
 import {connect} from "react-redux";
-import {galleryList} from "../../redux/reducers/gallery/gallerySelector";
 import {bindActionCreators} from "redux";
-import {fetchGallery} from "../../redux/actions/gallery";
 import {fetchComments} from "../../redux/actions/comments";
 import {commentList} from "../../redux/reducers/comments/commentSelector";
 
 
-const ShowMediaModal = ({selectedImage, setSelectedImage, fetchComments, commentList}: { selectedImage: any, setSelectedImage: any, fetchComments: any, commentList: any }) => {
+const ShowMediaModal = ({
+                            selectedGallery,
+                            setSelectedGallery,
+                            fetchComments,
+                            commentList
+                        }: ShowMediaType) => {
 
     const [showNextButton, setShowNextButton] = useState(false);
 
+    /**
+     * changes between different images of the same gallery
+     * @param direction
+     */
     const changeMedia = (direction: string) => {
-        const currentIndex = _.findIndex(selectedImage?.image?.images, (image: ImageType) => {
-            return image.link === selectedImage.link
+        const currentIndex = _.findIndex(selectedGallery?.gallery?.images, (image: ImageType) => {
+            return image.link === selectedGallery.link
         })
         if (direction === "next") {
-            setSelectedImage({...selectedImage, link: selectedImage?.image?.images[currentIndex + 1].link})
+            setSelectedGallery({...selectedGallery, link: selectedGallery?.gallery?.images[currentIndex + 1].link})
         } else {
-            setSelectedImage({...selectedImage, link: selectedImage?.image?.images[currentIndex - 1].link})
+            setSelectedGallery({...selectedGallery, link: selectedGallery?.gallery?.images[currentIndex - 1].link})
         }
     }
 
+    /**
+     * returns boolean value that determines if the previous image button should be rendered
+     */
     const showPrevious = () => {
-        const currentIndex = _.findIndex(selectedImage?.image?.images, (image: ImageType) => {
-            return image.link === selectedImage.link
+        const currentIndex = _.findIndex(selectedGallery?.gallery?.images, (image: ImageType) => {
+            return image.link === selectedGallery.link
         })
         return currentIndex !== 0;
     }
 
+    /**
+     * returns boolean value that determines if the next image button should be rendered
+     */
     const showNext = () => {
-        const currentIndex = _.findIndex(selectedImage?.image?.images, (image: ImageType) => {
-            return image.link === selectedImage.link
+        const currentIndex = _.findIndex(selectedGallery?.gallery?.images, (image: ImageType) => {
+            return image.link === selectedGallery.link
         })
-        return selectedImage?.image?.images.length > currentIndex + 1;
+        return selectedGallery?.gallery?.images.length > currentIndex + 1;
     }
 
-    useEffect(() => {
-        fetchComments(selectedImage?.image?.id)
-    }, [])
 
-    console.log(commentList)
+    /**
+     * fetches comments that are related to the selected galery
+     */
+    useEffect(() => {
+        fetchComments(selectedGallery?.gallery?.id)
+    }, [])
 
     return (
         <div className={style.modal}>
             <div className={style.title}>
-                {selectedImage?.image?.title}
+                {selectedGallery?.gallery?.title}
             </div>
-            <div style={{display: "flex", borderTop: "1px solid black", paddingTop: "5px", justifyContent:"space-between"}}>
+            <div style={{
+                display: "flex",
+                borderTop: "1px solid black",
+                paddingTop: "5px",
+                justifyContent: "space-between"
+            }}>
                 <div className={style.previous}
                      style={{visibility: (showNextButton && showPrevious()) ? "visible" : "hidden"}}
                      onMouseEnter={() => setShowNextButton(true)}
@@ -70,17 +89,18 @@ const ShowMediaModal = ({selectedImage, setSelectedImage, fetchComments, comment
                         borderRadius: "15px"
                     }}/>
                 </div>
-                {selectedImage?.link?.substr(selectedImage?.link.length - 3) === "mp4" ? <video width="250px" autoPlay loop>
-                    <source src={selectedImage.link} type="video/mp4"/>
-                </video> : <img
-                    src={selectedImage?.link}
-                    alt="error"
-                    width="75%"
-                    height="100%"
-                    onMouseEnter={() => setShowNextButton(true)}
-                    onMouseLeave={() => setShowNextButton(false)}
-                    style={{maxHeight: "440px", objectFit: "contain"}}
-                />}
+                {selectedGallery?.link?.substr(selectedGallery?.link.length - 3) === "mp4" ?
+                    <video width="250px" autoPlay loop>
+                        <source src={selectedGallery.link} type="video/mp4"/>
+                    </video> : <img
+                        src={selectedGallery?.link}
+                        alt="error"
+                        width="75%"
+                        height="100%"
+                        onMouseEnter={() => setShowNextButton(true)}
+                        onMouseLeave={() => setShowNextButton(false)}
+                        style={{maxHeight: "440px", objectFit: "contain"}}
+                    />}
 
 
                 <div
@@ -102,7 +122,7 @@ const ShowMediaModal = ({selectedImage, setSelectedImage, fetchComments, comment
                 <div className={style.comments}>
                     {commentList?.map((comment: CommentType) => {
                         return (
-                            <Comment key={comment.id} parent={true} comment={comment} />
+                            <Comment key={comment.id} parent={true} comment={comment}/>
                         )
                     })}
                 </div>

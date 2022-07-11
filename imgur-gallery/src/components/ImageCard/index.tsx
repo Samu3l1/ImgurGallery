@@ -3,8 +3,9 @@ import {FaRegArrowAltCircleDown, FaRegArrowAltCircleUp} from "react-icons/fa"
 import {BiCommentDetail} from "react-icons/bi"
 import {BsEye} from "react-icons/bs"
 import style from "./style.module.css"
+import {GalleryType} from "../../types";
 
-const ImageCard = ({image, link, openImage}: { image: any, link: string, openImage?: any }) => {
+const ImageCard = ({gallery, link, openImage}: { gallery: GalleryType, link: string, openImage: (gallery: GalleryType, link: string) => void }) => {
 
     const imageRef: any = React.createRef()
     const [spans, setSpan] = useState(0)
@@ -22,11 +23,11 @@ const ImageCard = ({image, link, openImage}: { image: any, link: string, openIma
 
     return (
         <div style={{gridRowEnd: `span ${spans}`}}>
-            {image?.images?.length > 1 && <div className={style.subImages}>
-                {image.images.length}
+            {gallery?.images?.length > 1 && <div className={style.subImages}>
+                {gallery.images.length}
             </div>}
             <img
-                onClick={() => openImage(image, link)}
+                onClick={() => openImage(gallery, link)}
                 ref={imageRef}
                 alt="err"
                 src={link}
@@ -43,26 +44,26 @@ const ImageCard = ({image, link, openImage}: { image: any, link: string, openIma
                 justifyContent: "space-between"
             }}>
                 <div style={{color: "white", wordBreak: "break-word", maxHeight: "37px", overflow: "hidden"}}>
-                    {image.title}
+                    {gallery.title}
                 </div>
                 <div className={style.imageDetails} style={{display: "flex"}}>
                     <div className={style.detailContainer}>
                         <FaRegArrowAltCircleUp/>
                         <div>
-                            {image.ups}
+                            {gallery.ups}
                         </div>
                     </div>
                     <FaRegArrowAltCircleDown className={style.detailContainer} />
                     <div className={style.detailContainer}>
                         <BiCommentDetail/>
                         <div>
-                            {image.comment_count}
+                            {gallery.comment_count}
                         </div>
                     </div>
                     <div className={style.detailContainer}>
                         <BsEye/>
                         <div>
-                            {image.views}
+                            {gallery.views}
                         </div>
                     </div>
                 </div>
