@@ -14,13 +14,13 @@ const Home = () => {
     const images = GALLERY_HOT.data.map((image: any) => {
         if(image.images){
             if(image.images[0].mp4){
-                return <VideoCard link={image.images[0].mp4}/>
+                return <VideoCard link={image.images[0].mp4} image={image}/>
             } else {
                 return <ImageCard image={image} link={image.images[0].link}/>
             }
         }  else {
             if(image.mp4){
-                return <VideoCard link={image.mp4}/>
+                return <VideoCard link={image.mp4} image={image}/>
             } else {
                 return <ImageCard image={image} link={image.link}/>
             }
