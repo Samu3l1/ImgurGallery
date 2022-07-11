@@ -1,7 +1,7 @@
 import * as type from "../types";
-import {COMMENTS_ENDPOINT, GALLERY_ENDPOINT} from "../../api/endpoints";
+import {COMMENTS_ENDPOINT} from "../../api/endpoints";
 import api from "../../api/api";
-import {GALLERY_COMMENTS, GALLERY_HOT} from "../../api/responses";
+import {GALLERY_COMMENTS} from "../../api/responses";
 
 export const fetchComments =
     (galleryID: string) =>

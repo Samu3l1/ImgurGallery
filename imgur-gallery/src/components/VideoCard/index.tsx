@@ -3,8 +3,9 @@ import style from "./style.module.css";
 import {FaRegArrowAltCircleDown, FaRegArrowAltCircleUp} from "react-icons/fa";
 import {BiCommentDetail} from "react-icons/bi";
 import {BsEye} from "react-icons/bs";
+import {GalleryType} from "../../types";
 
-const VideoCard = ({link, image, openImage}: { link: string, image: any, openImage: any }) => {
+const VideoCard = ({link, gallery, openImage}: { link: string, gallery: GalleryType, openImage: (gallery: GalleryType, link: string) => void }) => {
 
     const videoRef: any = React.createRef()
     const [spans, setSpan] = useState(0)
@@ -13,6 +14,9 @@ const VideoCard = ({link, image, openImage}: { link: string, image: any, openIma
         videoRef.current.addEventListener('loadeddata', setSpans);
     })
 
+    /**
+     * when the imageCard loads this function is executed and sets how many spans of the grid it will take
+     */
     const setSpans = () => {
         const height = videoRef.current.clientHeight;
         const spans = Math.ceil(height / 10 + 1) + 10;
@@ -23,7 +27,7 @@ const VideoCard = ({link, image, openImage}: { link: string, image: any, openIma
 
     return (
         <div style={{gridRowEnd: `span ${spans}`}}>
-            <video ref={videoRef} width="250px" autoPlay loop onClick={() => openImage(image, link)}>
+            <video ref={videoRef} width="250px" autoPlay loop onClick={() => openImage(gallery, link)}>
                 <source src={link} type="video/mp4"/>
             </video>
             <div style={{
@@ -38,26 +42,26 @@ const VideoCard = ({link, image, openImage}: { link: string, image: any, openIma
                 justifyContent: "space-between"
             }}>
                 <div style={{color: "white", wordBreak: "break-word", maxHeight: "37px", overflow: "hidden"}}>
-                    {image.title}
+                    {gallery.title}
                 </div>
                 <div className={style.imageDetails} style={{display: "flex"}}>
                     <div className={style.detailContainer}>
                         <FaRegArrowAltCircleUp/>
                         <div>
-                            {image.ups}
+                            {gallery.ups}
                         </div>
                     </div>
                     <FaRegArrowAltCircleDown className={style.detailContainer} />
                     <div className={style.detailContainer}>
                         <BiCommentDetail/>
                         <div>
-                            {image.comment_count}
+                            {gallery.comment_count}
                         </div>
                     </div>
                     <div className={style.detailContainer}>
                         <BsEye/>
                         <div>
-                            {image.views}
+                            {gallery.views}
                         </div>
                     </div>
                 </div>

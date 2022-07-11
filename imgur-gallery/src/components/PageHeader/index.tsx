@@ -1,9 +1,15 @@
 import style from "../../pages/home/style.module.css";
 import {Button, Menu, MenuItem, Typography} from "@mui/material";
 import {useState} from "react";
-import {SortParamType, WindowParamType} from "../../types";
+import {PageHeaderType, SortParamType} from "../../types";
 
-const WindowButton = ({setWindow}: any) => {
+
+/**
+ * this function renders a dropdown menu for the window paramanater
+ * @param setWindow
+ * @constructor
+ */
+const WindowButton = ({setWindow}: {setWindow: (s: string) => void}) => {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [windowLabel, setWindowLabel] = useState("Window")
@@ -52,7 +58,7 @@ const WindowButton = ({setWindow}: any) => {
     )
 }
 
-const PageHeader = ({setSection, setViral, viral, setSort, setWindow}: {setSection: any, setViral: any, viral: any, setSort: any, setWindow: any}) => {
+const PageHeader = ({setSection, setViral, viral, setSort, setWindow}: PageHeaderType) => {
 
     const [anchorElSort, setanchorElSort] = useState(null);
     const [sortLabel, setSortLabel] = useState<SortParamType | "sort">("sort")
