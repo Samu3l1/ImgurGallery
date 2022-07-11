@@ -1,3 +1,5 @@
+// This File exists as a fail-safe  for the api. If the api request isnt successful then these hard-coded data thill be used insted.
+
 export const GALLERY_HOT = {
     "data": [
         {
