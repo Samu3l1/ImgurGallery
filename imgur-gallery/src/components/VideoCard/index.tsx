@@ -19,7 +19,7 @@ const VideoCard = ({link, gallery, openImage}: { link: string, gallery: GalleryT
      */
     const setSpans = () => {
         const height = videoRef.current.clientHeight;
-        const spans = Math.ceil(height / 10 + 1) + 10;
+        const spans = Math.ceil(height / 10 + 1) + 15;
 
         setSpan(spans);
     }
@@ -32,7 +32,7 @@ const VideoCard = ({link, gallery, openImage}: { link: string, gallery: GalleryT
             </video>
             <div style={{
                 backgroundColor: "#474a51",
-                height: "60px",
+                height: "100px",
                 width: "210px",
                 position: "relative",
                 top: "-4px",
