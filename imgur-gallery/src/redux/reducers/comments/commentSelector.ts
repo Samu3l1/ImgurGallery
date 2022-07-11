@@ -1,0 +1,1 @@
+export const commentList = (state: any) => state?.comments?.payload;

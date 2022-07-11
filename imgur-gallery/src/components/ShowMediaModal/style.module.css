@@ -1,0 +1,48 @@
+.media{
+
+}
+
+.title{
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: 600;
+    overflow: hidden;
+}
+
+.modal{
+    width: 50vw;
+    height: calc(50vh + 50px);
+}
+
+.comments{
+    max-width: 50%;
+    max-height: 440px;
+    overflow-y: scroll;
+    width: 90%;
+    margin-left: 20px;
+}
+
+.comments::-webkit-scrollbar {
+    display: none;
+}
+
+.next{
+    position: relative;
+    width: 0;
+    align-self: center;
+    left: -50px;
+}
+
+.next:hover{
+    cursor: pointer;
+}
+
+.previous{
+    position: relative;
+    width: 0;
+    align-self: center;
+}
+
+.previous:hover{
+    cursor: pointer;
+}
