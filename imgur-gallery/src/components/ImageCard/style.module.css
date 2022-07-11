@@ -1,0 +1,26 @@
+.imageDetails > *{
+    color: #8d929b;
+}
+
+.imageDetails{
+    justify-content: space-between;
+}
+
+.detailContainer{
+    display: flex;
+    align-items: center;
+}
+
+.detailContainer:hover{
+    cursor: pointer;
+    color: white;
+}
+
+.subImages{
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    margin-left: 210px;
+    margin-top: 10px;
+    padding: 0 10px;
+    color:white;
+}
