@@ -1,0 +1,1 @@
+export const galleryList = (state: any) => state?.gallery?.payload;

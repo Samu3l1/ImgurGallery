@@ -1,13 +1,19 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import "./styles/globalStyles.css"
-import App from './App';
+import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux';
+import {createStore, applyMiddleware, compose} from "redux";
+import reduxThunk from 'redux-thunk';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-  // <React.StrictMode>
-    <App />
-  // </React.StrictMode>
-);
+import App from "./App";
+import reducers from './redux/reducers/index';
+
+// @ts-ignore
+const composeEnhancers = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] as typeof compose || compose;
+const store = createStore(reducers, composeEnhancers(applyMiddleware(reduxThunk)));
+
+ReactDOM.render(
+    <Provider store={store}>
+        <App/>
+    </Provider>,
+    document.querySelector('#root')
+)

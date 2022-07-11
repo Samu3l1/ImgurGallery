@@ -1,14 +1,20 @@
 import style from "./style.module.css"
-import {ImageType} from "../../types";
+import {CommentType, ImageType} from "../../types";
 import {GALLERY_COMMENTS} from "../../api/responses";
 import Comment from "../Comment";
 import {BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill} from "react-icons/bs"
-import {useState} from "react";
+import React, {useEffect, useState} from "react";
 // @ts-ignore
 import _ from "lodash";
+import {connect} from "react-redux";
+import {galleryList} from "../../redux/reducers/gallery/gallerySelector";
+import {bindActionCreators} from "redux";
+import {fetchGallery} from "../../redux/actions/gallery";
+import {fetchComments} from "../../redux/actions/comments";
+import {commentList} from "../../redux/reducers/comments/commentSelector";
 
 
-const ShowMediaModal = ({selectedImage, setSelectedImage}: { selectedImage: any, setSelectedImage: any }) => {
+const ShowMediaModal = ({selectedImage, setSelectedImage, fetchComments, commentList}: { selectedImage: any, setSelectedImage: any, fetchComments: any, commentList: any }) => {
 
     const [showNextButton, setShowNextButton] = useState(false);
 
@@ -37,11 +43,18 @@ const ShowMediaModal = ({selectedImage, setSelectedImage}: { selectedImage: any,
         return selectedImage?.image?.images.length > currentIndex + 1;
     }
 
-    // console.log(selectedImage)
+    useEffect(() => {
+        fetchComments(selectedImage?.image?.id)
+    }, [])
+
+    console.log(commentList)
 
     return (
         <div className={style.modal}>
-            <div style={{display: "flex"}}>
+            <div className={style.title}>
+                {selectedImage?.image?.title}
+            </div>
+            <div style={{display: "flex", borderTop: "1px solid black", paddingTop: "5px", justifyContent:"space-between"}}>
                 <div className={style.previous}
                      style={{visibility: (showNextButton && showPrevious()) ? "visible" : "hidden"}}
                      onMouseEnter={() => setShowNextButton(true)}
@@ -57,7 +70,9 @@ const ShowMediaModal = ({selectedImage, setSelectedImage}: { selectedImage: any,
                         borderRadius: "15px"
                     }}/>
                 </div>
-                <img
+                {selectedImage?.link?.substr(selectedImage?.link.length - 3) === "mp4" ? <video width="250px" autoPlay loop>
+                    <source src={selectedImage.link} type="video/mp4"/>
+                </video> : <img
                     src={selectedImage?.link}
                     alt="error"
                     width="75%"
@@ -65,7 +80,8 @@ const ShowMediaModal = ({selectedImage, setSelectedImage}: { selectedImage: any,
                     onMouseEnter={() => setShowNextButton(true)}
                     onMouseLeave={() => setShowNextButton(false)}
                     style={{maxHeight: "440px", objectFit: "contain"}}
-                />
+                />}
+
 
                 <div
                     className={style.next}
@@ -84,17 +100,30 @@ const ShowMediaModal = ({selectedImage, setSelectedImage}: { selectedImage: any,
                     }}/>
                 </div>
                 <div className={style.comments}>
-                    {/*{GALLERY_COMMENTS.data.map((comment: CommentType) => {*/}
-                    {/*    return (*/}
-                    {/*        <Comment key={comment.id} comment={comment} />*/}
-                    {/*    )*/}
-                    {/*})}*/}
-
-                    <Comment parent={true} comment={GALLERY_COMMENTS.data[1]}/>
+                    {commentList?.map((comment: CommentType) => {
+                        return (
+                            <Comment key={comment.id} parent={true} comment={comment} />
+                        )
+                    })}
                 </div>
             </div>
         </div>
     )
 }
 
-export default ShowMediaModal;
+const mapStateToProps = (state: object) => {
+    return {
+        commentList: commentList(state),
+    };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+    return bindActionCreators(
+        {
+            fetchComments: fetchComments,
+        },
+        dispatch
+    );
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShowMediaModal);

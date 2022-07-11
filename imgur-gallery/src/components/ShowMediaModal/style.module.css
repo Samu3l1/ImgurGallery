@@ -2,17 +2,23 @@
 
 }
 
+.title{
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: 600;
+    overflow: hidden;
+}
+
 .modal{
     width: 50vw;
-    height: 50vh;
+    height: calc(50vh + 50px);
 }
 
 .comments{
+    max-width: 50%;
     max-height: 440px;
     overflow-y: scroll;
-    display: flex;
     width: 90%;
-    justify-content: center;
     margin-left: 20px;
 }
 
